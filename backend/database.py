@@ -20,7 +20,7 @@ async def fetch_all_todos():
   documents = collection.find({})
   async for item in documents:
     todos.append(Todo(**item)) # this Todo is defined in model.py
-  return documents
+  return todos
 
 async def create_todo(todo):
   document = await collection.insert_one(todo.dict())
@@ -31,8 +31,8 @@ async def update_todo(id, desc):
   return document
 
 async def remove_todo(id):
-  document = await collection.delete_one({"id": id})
-  return document
+  await collection.delete_one({"id": id})
+  return True
   
 
 

@@ -1,11 +1,19 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from model import Todo
 
 # App object
 app = FastAPI()
 
-# CORS middleware
+from database import (
+    fetch_one_todo,
+    fetch_all_todos,
+    create_todo,
+    update_todo,
+    remove_todo
+)
 
+# CORS middleware
 origins = [
     "http://localhost",
     "http://localhost:8080",
@@ -25,15 +33,23 @@ def read_root():
 
 @app.get("/api/todo")
 async def get_todo():
-    return {"todo": "todo"}
+    reponse = await fetch_all_todos()
+    return reponse
 
-@app.get("/api/todo/{id}")
+@app.get("/api/todo/{id}", response_model=Todo)
 async def get_todo_by_id(id):
-    return {"todo": id}
+    response = await fetch_one_todo(id)
+    if response:
+        return response
+    raise HTTPException(404, f"Todo not found {id}")
+    
 
-@app.post("/api/todo")
-async def post_todo(todo):
-    return {"todo": todo}
+@app.post("/api/todo", response_model=Todo)
+async def post_todo(todo: Todo):
+    response = await create_todo(todo)
+    if response:
+        return todo
+    raise HTTPException(400, f"Something went wrong / Bad request" )
 
 @app.put("/api/todo/{id}")
 async def put_todo(id, data):
