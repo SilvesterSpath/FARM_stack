@@ -5,3 +5,4 @@ class Todo(BaseModel):
     title: str
     description: str
     done: bool
+
