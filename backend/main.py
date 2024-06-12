@@ -56,5 +56,9 @@ async def put_todo(id, data):
     return {"todo": id, "data": data}
 
 @app.delete("/api/todo/{id}")
-async def delete_todo(id):
-    return {"todo": id}
+async def delete_todo(id: int):
+    response = await remove_todo(id)
+    if response:
+        return {"todo": id}
+    raise HTTPException(404, f"Todo not found {id}")
+   
