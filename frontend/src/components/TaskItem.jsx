@@ -9,6 +9,8 @@ const TaskItem = (props) => {
       await response.json();
     } catch (error) {
       console.error(error);
+    } finally {
+      props.taskDelete(id);
     }
   };
   return (

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import TaskItem from './components/TaskItem';
 import axios from 'axios';
 import TodoListView from './components/TodoListView';
 
@@ -32,6 +31,11 @@ function App() {
     } catch (error) {
       console.error(error); // Handle any errors from the API call
     }
+  };
+
+  const handleTaskDelete = (id) => {
+    const updatedTodoList = todoList.filter((item) => item.id !== id);
+    setTodoList(updatedTodoList);
   };
 
   return (
@@ -80,7 +84,10 @@ function App() {
           </span>
           <h5 className='card text-white bg-dark mb-3'>List of Tasks</h5>
           <div>
-            <TodoListView todoList={todoList} />
+            <TodoListView
+              todoList={todoList}
+              handleTaskDelete={handleTaskDelete}
+            />
           </div>
         </div>
         <h6 className='card text-dark bg-warning py-1 mb-0'>
