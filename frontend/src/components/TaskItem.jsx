@@ -14,12 +14,16 @@ const TaskItem = (props) => {
     }
   };
   return (
-    <div>
-      <h5>Title: {props.task.title}</h5>
-      <p>Description: {props.task.description}</p>
+    <div style={{ display: 'flex' }}>
+      <h5 style={{ display: 'flex', margin: '5px', alignItems: 'center' }}>
+        Title: {props.task.title}
+      </h5>
+      <p style={{ display: 'flex', margin: '5px', alignItems: 'center' }}>
+        Description: {props.task.description}
+      </p>
       <button
         className='btn btn-outline-danger my-2 mx-2'
-        style={{ borderRadius: '50px' }}
+        style={{ borderRadius: '50px', margin: '5px' }}
         onClick={() => deleteTask(props.task.id)}
       >
         Delete
