@@ -11,8 +11,8 @@ database = client.TodoList
 collection = database.todo
 
 # Functions
-async def fetch_one_todo(title):
-  document = await collection.find_one({"title": title})
+async def fetch_one_todo(id):
+  document = await collection.find_one({"id": id})
   return document
 
 async def fetch_all_todos():
