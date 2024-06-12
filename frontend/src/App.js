@@ -3,6 +3,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import TaskItem from './components/TaskItem';
 import axios from 'axios';
+import TodoListView from './components/TodoListView';
 
 function App() {
   const [todoList, setTodoList] = useState([{}]);
@@ -79,9 +80,7 @@ function App() {
           </span>
           <h5 className='card text-white bg-dark mb-3'>List of Tasks</h5>
           <div>
-            {todoList.length > 0
-              ? todoList.map((task) => <TaskItem key={task.id} task={task} />)
-              : 'No Tasks'}
+            <TodoListView todoList={todoList} />
           </div>
         </div>
         <h6 className='card text-dark bg-warning py-1 mb-0'>
